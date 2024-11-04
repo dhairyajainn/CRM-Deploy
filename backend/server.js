@@ -21,12 +21,14 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const session = require("express-session");
 const googleAuth = require("./routes/googleAuthRoutes")
+const path = require("path")
 
 require("dotenv").config();
 
 const URL = process.env.DB_URL;
 const PORT = process.env.PORT || 3000;
 
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -65,6 +67,10 @@ app.use("/api/client", clientRoutes);
 app.use("/api/project", projectRoutes);
 app.use("/api/meeting", meetingRoutes);
 app.use("/api/dashboard", dashboardRoutes)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
 
 app.listen(PORT, async () => {
   await connectDB(URL);
