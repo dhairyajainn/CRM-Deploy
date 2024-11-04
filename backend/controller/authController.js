@@ -345,6 +345,7 @@ exports.registerUser = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   console.log('req.body :>> ', req.body);
+  console.log("response for deploy", res)
   try {
     if (!email || !password) {
       return res.status(400).send({
