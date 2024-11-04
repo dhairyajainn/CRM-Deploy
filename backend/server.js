@@ -28,7 +28,7 @@ require("dotenv").config();
 const URL = process.env.DB_URL;
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -69,7 +69,7 @@ app.use("/api/meeting", meetingRoutes);
 app.use("/api/dashboard", dashboardRoutes)
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
 app.listen(PORT, async () => {
